@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="si">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#5b21b6">
+<title>CS Curtain Orders</title>
+<style>*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:#f5f3ff;color:#211b2d}button,input,select,textarea{font:inherit}.hidden{display:none!important}
+#welcome{position:fixed;inset:0;z-index:9999;background:linear-gradient(145deg,#4c1d95,#7c3aed,#db2777);color:white;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px}.wbox{width:min(430px,100%);padding:38px 22px;border-radius:28px;background:#ffffff20;backdrop-filter:blur(12px);box-shadow:0 20px 60px #0004}.wbox .powered{font-size:14px;margin-bottom:18px}.logo{width:160px;height:160px;border-radius:30px;background:#fff2;display:flex;align-items:center;justify-content:center;margin:0 auto 22px;font-size:44px;overflow:hidden}.logo img{width:100%;height:100%;object-fit:contain}.wbox h1{margin:0;font-size:30px}
+#app{min-height:100vh}header{position:fixed;left:0;top:0;bottom:0;width:230px;background:#24103f;color:white;padding:18px 13px;z-index:20;box-shadow:4px 0 20px #0002}.brand{font-weight:800;color:white;font-size:21px;padding:8px 8px 16px}.search{margin:0 0 15px}.search input{width:100%;background:white;color:#222;border:0}#newTop{width:100%;margin-bottom:10px}nav{display:flex;flex-direction:column;gap:7px}nav button{padding:13px 12px;border:0;border-radius:12px;background:#ffffff12;color:#eee;font-weight:700;text-align:left}nav button.active{background:#8b5cf6;color:white}
+main{margin-left:230px;max-width:1100px;padding:25px 22px 90px}.page{display:none}.page.active{display:block}h2{margin:5px 0 15px;color:#4c1d95}.card{background:white;border-radius:18px;padding:17px;margin-bottom:14px;box-shadow:0 4px 18px #0000000d}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}label{font-weight:800;font-size:13px;display:block;margin-bottom:6px;color:#4c1d95}input,select,textarea{width:100%;padding:12px;border:2px solid #ddd6fe;border-radius:11px;background:white;outline:none;color:#222}input::placeholder{color:#999}input:focus,select:focus,textarea:focus{border-color:#7c3aed;box-shadow:0 0 0 3px #7c3aed18}.btn{border:0;border-radius:12px;padding:11px 15px;background:#6d28d9;color:white;font-weight:700;cursor:pointer}.btn.secondary{background:#ede9fe;color:#4c1d95}.btn.danger{background:#dc2626}.btn.success{background:#059669}.btn.small{padding:7px 10px;font-size:12px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+table{width:100%;border-collapse:collapse;min-width:720px}th,td{border-bottom:1px solid #eee;padding:8px;text-align:left;vertical-align:middle}th{background:#faf5ff;color:#4c1d95}.tablewrap{overflow-x:auto}.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.stat{padding:18px;border-radius:16px;background:linear-gradient(135deg,#7c3aed,#a21caf);color:white}.stat b{display:block;font-size:25px;margin-top:4px}.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:13px}.sample-add{display:flex;align-items:center;justify-content:center;min-height:100px;border:2px dashed #8b5cf6;border-radius:15px;background:#faf5ff;color:#5b21b6;font-size:36px;cursor:pointer}.order{border:1px solid #eee;border-radius:14px;padding:13px;margin:9px 0}.order strong{color:#5b21b6}footer{text-align:center;color:#777;padding:20px;font-size:13px}.modal{position:fixed;inset:0;background:#0008;z-index:100;display:flex;align-items:center;justify-content:center;padding:15px}.modalbox{background:white;border-radius:18px;padding:18px;width:min(500px,100%)}
+.quote-paper{background:white;color:#111;padding:28px;max-width:850px;margin:auto}.quote-head{display:flex;justify-content:space-between;gap:20px;border-bottom:2px solid #222;padding-bottom:15px}.quote-title{font-size:27px;font-weight:800}.quote-info{margin:18px 0}.quote-table{width:100%;min-width:0;border-collapse:collapse}.quote-table th,.quote-table td{border:1px solid #aaa;padding:9px}.quote-total{margin-left:auto;width:320px;margin-top:15px}.quote-total div{display:flex;justify-content:space-between;padding:7px;border-bottom:1px solid #ddd}.quote-footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px}
+@media(max-width:800px){header{position:relative;width:100%;height:auto;padding:10px}.brand{padding:4px 4px 10px}nav{display:grid;grid-template-columns:repeat(2,1fr)}nav button{text-align:center;padding:10px 5px}main{margin-left:0;padding:14px 10px 70px}.grid{grid-template-columns:1fr}.statgrid{grid-template-columns:1fr}.gallery{grid-template-columns:repeat(2,1fr)}}@media print{body{background:white}header,.actions,.no-print{display:none!important}.page{display:none!important}.page.printing{display:block!important}@page{size:A4;margin:10mm}}.qedit textarea{box-sizing:border-box}.qedit{min-width:0}@media(max-width:700px){.qedit{grid-template-columns:1fr auto auto auto!important}.qedit textarea{grid-column:1/-1}}</style>
+</head>
+<body>
+
+<section id="welcome">
+  <div class="wbox">
+    <div class="powered">Powered by CS Electro</div>
+    <div class="logo" id="welcomeLogo">CS</div>
+    <h1 id="welcomeTitleDisplay">CS Curtain Orders</h1>
+    <p>කර්ටන් Order Management System</p>
+  </div>
+</section>
+
+<div id="app" class="hidden">
+<header>
+ <div class="head">
+  <div class="brand">CS Curtain Orders</div>
+  <button class="btn small" id="newTop">+ New Order</button>
+ </div>
+ <div class="search"><input id="globalSearch" placeholder="🔎 Customer / Order No / Phone / Address"></div>
+ <div class="head">
+  <nav id="nav">
+   <button data-page="samples">Sample</button>
+   <button data-page="neworder">New Order</button>
+   <button data-page="orders">Order List</button><button data-page="quote">Quotation</button>
+   <button data-page="usage">Usage</button>
+   <button data-page="cash">Cash</button>
+   <button data-page="admin">Admin Panel</button>
+  </nav>
+ </div>
+</header>
+
+<main>
+<section id="samples" class="page active">
+ <h2>Sample</h2>
+ <div class="card"><div class="sample-add" id="sampleAdd">＋</div><input id="sampleFiles" type="file" accept="image/*" multiple class="hidden"><div id="sampleGallery" class="gallery" style="margin-top:12px"></div><p id="noPhotos">තව photos නැත.</p></div>
+</section>
+
+<section id="neworder" class="page">
+ <h2 id="orderTitle">New Order</h2>
+ <div class="card">
+  <div class="grid">
+   <div><label>Customer Name</label><input id="customer"></div>
+   <div><label>Phone</label><input id="phone" type="tel"></div>
+   <div><label>Address</label><input id="address"></div>
+   <div><label>Distance to House</label><input id="distance" placeholder="km"></div>
+  </div>
+ </div>
+ <div class="card">
+  <h3>Measurements</h3><div style="display:flex;align-items:center;gap:6px;margin:6px 0;font-size:12px"><label style="margin:0">Width ×</label><input id="widthMultiplier" type="number" step="0.01" min="0.01" value="4" style="width:65px;padding:5px" title="පළල × මෙම අගය ÷ 39 ලෙස මිනුම ගණනය වේ"></div>
+  <div class="tablewrap"><table><thead><tr><th>Height</th><th>Width</th><th>Remark</th><th>M</th><th>RM</th><th></th></tr></thead><tbody id="measureBody"></tbody></table></div>
+  <div class="actions"><button class="btn secondary" id="addMeasure">+ Add Row</button></div>
+ </div>
+ <div class="card">
+  <div class="grid">
+   <div><label>Measurement Officer</label><input id="measureOfficer"></div>
+   <div><label>Measurement Date</label><input id="measureDate" type="date"></div>
+   <div><label>Delivery Date</label><input id="deliveryDate" type="date"></div>
+  </div>
+ </div>
+ <div class="actions"><button class="btn" id="saveNext">Save & Next → Bill</button><button class="btn secondary" id="clearOrder">Clear</button></div>
+</section>
+
+<section id="bill" class="page">
+ <h2>Bill</h2>
+ <div class="card"><div><b>Order No:</b> <span id="billOrderNo">-</span> &nbsp; <b>Customer:</b> <span id="billCustomer">-</span></div></div>
+ <div class="card">
+  <div class="tablewrap"><table><thead><tr><th>Description</th><th>Unit Price</th><th>Qty</th><th>Discount (%)</th><th>Total</th><th></th></tr></thead><tbody id="billBody"></tbody></table></div>
+  <div class="actions"><button class="btn secondary" id="addBill">+ Add Item</button></div>
+ </div>
+ <div class="card">
+  <div class="grid">
+   <div><label>Grand Total</label><input id="grandTotal" readonly></div>
+   <div><label>Advance</label><input id="advance" type="number" value="0"></div>
+   <div><label>Balance</label><input id="balance" readonly></div>
+   <div><label>Bill Prepared Officer</label><input id="billOfficer"></div>
+  </div>
+ </div>
+ <div class="actions"><button class="btn success" id="saveBill">Save Order</button><button class="btn secondary" id="printBill">Print</button></div>
+</section>
+
+<section id="quote" class="page"><h2>Quotation</h2><div id="quoteEditor" class="card no-print">
+ <div class="section-head"><h3>Edit Quotation Before Printing</h3><span class="muted">Edit / remove / add / move text</span></div>
+ <div class="actions">
+  <button class="btn" id="addQuoteText">+ Add Text</button>
+  <button class="btn secondary" id="resetQuoteEdit">Reset</button>
+  <button class="btn success" id="printQuoteEdit">Print A4 Quotation</button>
+ </div>
+ <div id="quoteBlocks" style="margin-top:10px"></div>
+</div><div class="card no-print"><button class="btn" id="printQuote" style="display:none">Print A4 Quotation</button></div><div id="quotePaper" class="quote-paper"></div></section><section id="orders" class="page">
+ <h2>Order List</h2>
+ <div class="card"><div id="orderList"></div></div>
+</section>
+
+<section id="usage" class="page">
+ <h2>Usage</h2>
+ <div class="statgrid">
+  <div class="stat">Emboss <b id="uEmboss">0 m</b></div>
+  <div class="stat">Printed <b id="uPrinted">0 m</b></div>
+  <div class="stat">Wooden Pole <b id="uWood">0</b></div>
+ </div>
+ <div class="card"><h3>Other Materials / Services</h3><div id="otherUsage"></div></div>
+</section>
+
+<section id="cash" class="page">
+ <h2>Cash</h2>
+ <div class="card">
+  <div class="grid">
+   <div><label>From</label><input id="cashFrom" type="date"></div>
+   <div><label>To</label><input id="cashTo" type="date"></div>
+  </div>
+  <div class="actions"><button class="btn" id="cashCalc">Calculate</button><button class="btn secondary" id="cashPrint">Print 80mm</button></div>
+ </div>
+ <div class="statgrid">
+  <div class="stat">Sales <b id="cashSales">Rs. 0.00</b></div>
+  <div class="stat">Advance <b id="cashAdvance">Rs. 0.00</b></div>
+  <div class="stat">Balance <b id="cashBalance">Rs. 0.00</b></div>
+ </div>
+</section>
+
+<section id="admin" class="page"><h2>Admin Panel</h2><div class="card"><h3>Welcome / Logo</h3><div class="grid"><div><label>Welcome Title</label><input id="welcomeTitle"></div><div><label>Quotation Title</label><input id="quoteTitle" placeholder="CS Curtain Orders"></div><div><label>Welcome Logo</label><input id="logoFile" type="file" accept="image/*"></div><div><label>Footer Name</label><input id="footName"></div><div><label>Village</label><input id="footVillage"></div><div><label>Address</label><input id="footAddress"></div><div><label>Phone</label><input id="footPhone"></div></div><div class="actions"><button class="btn" id="saveSettings">Save Settings</button></div></div><div class="card"><h3>Change Admin Password</h3><div class="grid"><div><label>New Password</label><input id="adminPass" type="password"></div><div><label>Confirm Password</label><input id="adminPass2" type="password"></div></div><div class="actions"><button class="btn" id="changePassword">Change Password</button></div></div><div class="card"><h3>Backup</h3><div class="actions"><button class="btn secondary" id="exportData">Export Backup</button><label class="btn secondary">Import Backup<input id="importData" type="file" accept=".json" style="display:none"></label></div></div></section>
+</main>
+<footer id="footer"></footer>
+</div>
+
+<div id="modal" class="modal hidden">
+ <div class="modalbox">
+  <h3>Admin Password</h3>
+  <input id="modalPass" type="password" placeholder="Password">
+  <div class="actions"><button class="btn" id="modalOk">OK</button><button class="btn secondary" id="modalCancel">Cancel</button></div>
+ </div>
+</div>
+
+<script>document.addEventListener("DOMContentLoaded",()=>{
+const $=id=>document.getElementById(id),KEY="csCurtainOrdersDataV3";
+let data=JSON.parse(localStorage.getItem(KEY)||'{"orders":[],"photos":[],"settings":{"password":"1234","title":"CS Curtain Orders","logo":"","name":"","village":"","address":"","phone":"0740803095"}}');
+data.settings=Object.assign({password:"1234",title:"CS Curtain Orders",quoteTitle:"CS Curtain Orders",logo:"",name:"",village:"",address:"",phone:"0740803095"},data.settings||{});
+let current=null,pending=null;const remarks=["සාලය","දොර","ජනේලය","කාමරය","කෑම කාමරය","පිටත කාමරය","මුලුතැන්ගෙය"],desc=["Emboss","Printed","Shier","Wooden pole","Iron pole","Tie band","Tie hooks","Tailaring","Transport","Fixing","Blind"];
+function save(){localStorage.setItem(KEY,JSON.stringify(data));renderAll()}
+function esc(x){return String(x||"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function show(id){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active","printing"));$(id)?.classList.add("active");document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("active",x.dataset.page===id));if(id==="orders")renderOrders();if(id==="samples")renderPhotos();if(id==="usage")usage();if(id==="admin")settingsUI()}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>b.dataset.page==="admin"?adminGate(()=>show("admin")):show(b.dataset.page));
+$("newTop").onclick=()=>{newOrder();show("neworder")};
+setTimeout(()=>{$("welcome").classList.add("hidden");$("app").classList.remove("hidden");show("samples")},2000);
+
+function newOrder(){current={id:null,customer:"",phone:"",address:"",distance:"",measurements:[],items:[],advance:0,billOfficer:"",measureOfficer:"",measureDate:new Date().toISOString().slice(0,10),deliveryDate:""};fillOrder()}
+function fillOrder(){$("widthMultiplier").value=current.widthMultiplier||4;(current.items||[]).forEach(i=>{i.discount=Number.isFinite(Number(i.discount))?Number(i.discount):0;i.total=Number.isFinite(i.total)?i.total:Math.max(0,(+i.price||0)*(+i.qty||0)*(1-i.discount/100))});$("customer").value=current.customer||"";$("phone").value=current.phone||"";$("address").value=current.address||"";$("distance").value=current.distance||"";$("measureOfficer").value=current.measureOfficer||"";$("measureDate").value=current.measureDate||"";$("deliveryDate").value=current.deliveryDate||"";$("measureBody").innerHTML="";(current.measurements||[]).forEach(addMeasure);if(!current.measurements?.length)addMeasure()}
+function addMeasure(m={}){let tr=document.createElement("tr");tr.innerHTML='<td><input class="mh" type="number" step=".01"></td><td><input class="mw" type="number" step=".01"></td><td><select class="mr"><option value="">Select</option>'+remarks.map(x=>`<option>${x}</option>`).join("")+'<option value="__custom">＋ Custom</option></select><input class="mc hidden" placeholder="Custom remark"></td><td class="mm">0.00</td><td class="mrm">0.00</td><td><button class="btn danger small del">×</button></td>';$("measureBody").appendChild(tr);tr.querySelector(".mh").value=m.height||"";tr.querySelector(".mw").value=m.width||"";tr.querySelector(".mr").value=m.remark||"";if(m.remark==="__custom"){tr.querySelector(".mc").classList.remove("hidden");tr.querySelector(".mc").value=m.custom||""}let calc=()=>{let w=parseFloat(tr.querySelector(".mw").value)||0,rm=w*(parseFloat($("widthMultiplier").value)||4)/39,m=Math.ceil(rm*4)/4;tr.querySelector(".mrm").textContent=rm.toFixed(2);tr.querySelector(".mm").textContent=m.toFixed(2)};tr.querySelectorAll("input").forEach(x=>x.oninput=calc);tr.querySelector(".mr").onchange=e=>tr.querySelector(".mc").classList.toggle("hidden",e.target.value!=="__custom");tr.querySelector(".del").onclick=()=>tr.remove();calc()}
+$("addMeasure").onclick=()=>addMeasure();$("widthMultiplier").oninput=()=>document.querySelectorAll("#measureBody tr").forEach(t=>{let w=parseFloat(t.querySelector(".mw").value)||0,rm=w*(parseFloat($("widthMultiplier").value)||4)/39,m=Math.ceil(rm*4)/4;t.querySelector(".mrm").textContent=rm.toFixed(2);t.querySelector(".mm").textContent=m.toFixed(2)});
+function readM(){return [...$("measureBody").querySelectorAll("tr")].map(t=>({height:t.querySelector(".mh").value,width:t.querySelector(".mw").value,remark:t.querySelector(".mr").value,custom:t.querySelector(".mc").value})).filter(x=>x.height||x.width||x.remark)}
+$("saveNext").onclick=()=>{Object.assign(current,{widthMultiplier:parseFloat($("widthMultiplier").value)||4,customer:$("customer").value.trim(),phone:$("phone").value,address:$("address").value,distance:$("distance").value,measureOfficer:$("measureOfficer").value,measureDate:$("measureDate").value,deliveryDate:$("deliveryDate").value,measurements:readM()});if(!current.customer)return alert("Customer Name දාන්න.");$("billOrderNo").textContent=current.id||"NEW";$("billCustomer").textContent=current.customer;$("billBody").innerHTML="";(current.items||[]).forEach(addBill);if(!current.items?.length)addBill();$("advance").value=current.advance||0;$("billOfficer").value=current.billOfficer||"";updateBill();show("bill")}
+function addBill(x={}){let t=document.createElement("tr");t.innerHTML='<td><select class="bd"><option value="">Select</option>'+desc.map(x=>`<option>${x}</option>`).join("")+'</select></td><td><input class="bp" type="number" step=".01" min="0"></td><td><input class="bq" type="number" step=".01" min="0"></td><td><input class="bdisc" type="number" step=".01" min="0"></td><td class="bt">0.00</td><td><button class="btn danger small">×</button></td>';$("billBody").appendChild(t);t.querySelector(".bd").value=x.description||"";t.querySelector(".bp").value=x.price??"";t.querySelector(".bq").value=x.qty??"";t.querySelector(".bdisc").value=x.discount??0;let c=()=>{let gross=(+t.querySelector(".bp").value||0)*(+t.querySelector(".bq").value||0),pct=Math.min(Math.max(0,+t.querySelector(".bdisc").value||0),100),d=gross*pct/100;t.querySelector(".bdisc").value=pct;t.querySelector(".bt").textContent=(gross-d).toFixed(2);updateBill()};t.querySelectorAll("input").forEach(i=>i.oninput=c);t.querySelector("button").onclick=()=>{t.remove();updateBill()};c()}
+$("addBill").onclick=()=>addBill();
+function items(){return [...$("billBody").querySelectorAll("tr")].map(t=>{let price=+t.querySelector(".bp").value||0,qty=+t.querySelector(".bq").value||0,gross=price*qty,discount=Math.min(Math.max(0,+t.querySelector(".bdisc").value||0),100),discountAmount=gross*discount/100;return{description:t.querySelector(".bd").value,price,qty,discount,discountAmount,total:gross-discountAmount}}).filter(x=>x.description)}
+function updateBill(){let t=items().reduce((s,x)=>s+x.total,0),a=+$("advance").value||0;$("grandTotal").value=t.toFixed(2);$("balance").value=Math.max(0,t-a).toFixed(2)}
+$("advance").oninput=updateBill;
+$("printBill").addEventListener("click",()=>{
+ let o=current||{},it=items(),total=it.reduce((a,x)=>a+x.total,0),adv=+$("advance").value||0;
+ let w=window.open("","_blank","width=420,height=700");
+ if(!w){alert("Please allow pop-ups for printing.");return}
+ let rows=it.map(x=>`<tr><td>${esc(x.description)}</td><td>${Number(x.qty||0).toFixed(2)}</td><td>${Number(x.price||0).toFixed(2)}</td><td>${Number(x.discount||0).toFixed(2)}%</td><td>${Number(x.total||0).toFixed(2)}</td></tr>`).join("");
+ w.document.write(`<html><head><title>Bill</title><style>@page{size:80mm auto;margin:3mm}body{font:11px monospace;width:74mm;margin:auto}h2{text-align:center}table{width:100%;border-collapse:collapse}td{padding:3px 0;border-bottom:1px dotted #999}.r{text-align:right}</style></head><body><h2>${esc(data.settings.quoteTitle||"CS Curtain Orders")}</h2><div>Order: ${esc(o.id||"")}</div><div>Customer: ${esc(o.customer||"")}</div><div>Phone: ${esc(o.phone||"")}</div><hr><table><tr><th>Item</th><th>Qty</th><th>Price</th><th>Disc</th><th>Total</th></tr>${rows}</table><hr><div class="r">Total: Rs. ${total.toFixed(2)}</div><div class="r">Advance: Rs. ${adv.toFixed(2)}</div><div class="r">Balance: Rs. ${Math.max(0,total-adv).toFixed(2)}</div><script>window.onload=()=>window.print()<\\/script></body></html>`);
+ w.document.close();
+});
+$("saveBill").onclick=()=>{current.items=items();current.advance=+$("advance").value||0;current.billOfficer=$("billOfficer").value;if(!current.id)current.id="CO-"+String(data.orders.length+1).padStart(4,"0");let i=data.orders.findIndex(x=>x.id===current.id);if(i>=0)data.orders[i]=current;else data.orders.push(current);save();alert("Order saved: "+current.id);show("orders")};
+$("clearOrder").onclick=()=>newOrder();
+
+function adminGate(fn){pending=fn;$("modalPass").value="";$("modal").classList.remove("hidden");$("modalPass").focus()}
+$("modalOk").onclick=()=>{if($("modalPass").value===data.settings.password){$("modal").classList.add("hidden");let f=pending;pending=null;f?.()}else alert("Wrong password")};$("modalCancel").onclick=()=>{$("modal").classList.add("hidden");pending=null}
+function renderOrders(){let q=$("globalSearch").value.toLowerCase();let a=data.orders.filter(o=>[o.id,o.customer,o.phone,o.address,o.measureDate].join(" ").toLowerCase().includes(q));$("orderList").innerHTML=a.length?a.map(o=>`<div class="order"><strong>${esc(o.id)}</strong> — ${esc(o.customer)}<br><small>${esc(o.phone)} | ${esc(o.address)} | ${esc(o.measureDate)}</small><div class="actions"><button class="btn small" data-e="${o.id}">Edit</button><button class="btn small" data-q="${o.id}">Quotation</button><button class="btn danger small" data-d="${o.id}">Delete</button></div></div>`).join(""):"No orders";document.querySelectorAll("[data-e]").forEach(b=>b.onclick=()=>adminGate(()=>{current=JSON.parse(JSON.stringify(data.orders.find(x=>x.id===b.dataset.e)));fillOrder();show("neworder")}));document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>adminGate(()=>{if(confirm("Delete order?")){data.orders=data.orders.filter(x=>x.id!==b.dataset.d);save()}}));document.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{current=data.orders.find(x=>x.id===b.dataset.q);quote();show("quote")})}
+$("globalSearch").oninput=renderOrders;
+
+$("sampleAdd").onclick=()=>adminGate(()=>$("sampleFiles").click());$("sampleFiles").onchange=e=>[...e.target.files].forEach(f=>{let r=new FileReader();r.onload=()=>{data.photos.push(r.result);save()};r.readAsDataURL(f)});
+function renderPhotos(){$("sampleGallery").innerHTML=data.photos.map((p,i)=>`<div><img src="${p}"><button class="btn danger small" data-p="${i}">Delete</button></div>`).join("");$("noPhotos").classList.toggle("hidden",data.photos.length>0);document.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>adminGate(()=>{data.photos.splice(+b.dataset.p,1);save()}))}
+function usage(){let s={Emboss:0,Printed:0,"Wooden pole":0,"Iron pole":0,Shier:0,"Tie band":0,"Tie hooks":0,Tailaring:0,Transport:0,Fixing:0,Blind:0};data.orders.forEach(o=>(o.items||[]).forEach(i=>{if(s[i.description]!==undefined)s[i.description]+=i.qty}));$("uEmboss").textContent=s.Emboss.toFixed(2)+" m";$("uPrinted").textContent=s.Printed.toFixed(2)+" m";$("uWood").textContent=s["Wooden pole"].toFixed(2);$("otherUsage").innerHTML=Object.keys(s).filter(k=>!["Emboss","Printed","Wooden pole"].includes(k)).map(k=>`<div style="padding:8px;border-bottom:1px solid #eee"><b>${k}</b> : ${s[k].toFixed(2)}</div>`).join("")}
+
+
+let quoteBlocks=[];
+function quoteDefaultBlocks(o){
+  const qt=data.settings.quoteTitle||"CS Curtain Orders";
+  const total=(o.items||[]).reduce((a,i)=>a+Number(i.total||0),0);
+  return [
+   {text:qt,kind:"title"},
+   {text:"QUOTATION",kind:"subtitle"},
+   {text:`Order No: ${o.id||""}\nDate: ${o.measureDate||""}`,kind:"text"},
+   {text:`Customer: ${o.customer||""}\nPhone: ${o.phone||""}\nAddress: ${o.address||""}\nDistance: ${o.distance||""}`,kind:"text"},
+   {text:"Measurements",kind:"heading"},
+   {text:(o.measurements||[]).map((m,i)=>`${i+1}. Height: ${m.height||""} | Width: ${m.width||""} | ${m.remark==="__custom"?(m.custom||""):m.remark||""} | RM: ${((parseFloat(m.width)||0)*(o.widthMultiplier||4)/39).toFixed(2)} | M: ${(Math.ceil((((parseFloat(m.width)||0)*(o.widthMultiplier||4)/39)*4)/4)).toFixed(2)}`).join("\n")||"No measurements",kind:"text"},
+   {text:"Items",kind:"heading"},
+   {text:(o.items||[]).map((i,n)=>`${n+1}. ${i.description||""} | Qty: ${Number(i.qty||0).toFixed(2)} | Unit: Rs. ${Number(i.price||0).toFixed(2)} | Discount: ${Number(i.discount||0).toFixed(2)}% | Total: Rs. ${Number(i.total||0).toFixed(2)}`).join("\n")||"No items",kind:"text"},
+   {text:`Grand Total: Rs. ${total.toFixed(2)}\nAdvance: Rs. ${Number(o.advance||0).toFixed(2)}\nBalance: Rs. ${Math.max(0,total-Number(o.advance||0)).toFixed(2)}`,kind:"total"},
+   {text:`Prepared by: ${o.billOfficer||""}\nMeasurement Officer: ${o.measureOfficer||""}\nDelivery Date: ${o.deliveryDate||""}`,kind:"text"}
+  ];
+}
+function renderQuoteEditor(){
+ const box=$("quoteBlocks"); if(!box)return;
+ box.innerHTML=quoteBlocks.map((b,i)=>`<div class="qedit" data-i="${i}" style="display:grid;grid-template-columns:1fr auto auto auto;gap:6px;align-items:start;border:1px solid #ddd;border-radius:8px;padding:7px;margin:6px 0;background:#fafafa">
+ <textarea style="width:100%;min-height:48px;resize:vertical;padding:7px;border:1px solid #ccc;border-radius:6px">${esc(b.text)}</textarea>
+ <button class="btn small qup" type="button">↑</button><button class="btn small qdown" type="button">↓</button><button class="btn danger small qdel" type="button">✕</button></div>`).join("");
+ box.querySelectorAll(".qedit").forEach(r=>{
+  const i=+r.dataset.i;
+  r.querySelector("textarea").oninput=e=>quoteBlocks[i].text=e.target.value;
+  r.querySelector(".qup").onclick=()=>{if(i){[quoteBlocks[i-1],quoteBlocks[i]]=[quoteBlocks[i],quoteBlocks[i-1]];renderQuoteEditor()}};
+  r.querySelector(".qdown").onclick=()=>{if(i<quoteBlocks.length-1){[quoteBlocks[i],quoteBlocks[i+1]]=[quoteBlocks[i+1],quoteBlocks[i]];renderQuoteEditor()}};
+  r.querySelector(".qdel").onclick=()=>{quoteBlocks.splice(i,1);renderQuoteEditor()};
+ });
+}
+function initQuoteEditor(reset=true){if(!current)return;if(reset||!quoteBlocks.length)quoteBlocks=quoteDefaultBlocks(current);renderQuoteEditor()}
+$("addQuoteText").onclick=()=>{quoteBlocks.push({text:"",kind:"text"});renderQuoteEditor()};
+$("resetQuoteEdit").onclick=()=>initQuoteEditor(true);
+$("printQuoteEdit").onclick=()=>{
+ const o=current||{}, st=data.settings||{};
+ const total=(o.items||[]).reduce((a,i)=>a+Number(i.total||0),0);
+ const adv=Number(o.advance||0), bal=Math.max(0,total-adv);
+ const logo=st.logo?`<img class="logo" src="${esc(st.logo)}">`:"";
+ const measurements=(o.measurements||[]).map((m,n)=>{
+   const w=parseFloat(m.width)||0, rm=w*(o.widthMultiplier||4)/39, mm=Math.ceil(rm*4)/4;
+   return `<tr><td>${n+1}</td><td>${esc(m.height)}</td><td>${esc(m.width)}</td><td>${esc(m.remark==="__custom"?m.custom:m.remark)}</td><td>${rm.toFixed(2)}</td><td>${mm.toFixed(2)}</td></tr>`;
+ }).join("");
+ const items=(o.items||[]).map((i,n)=>{
+   const d=Number(i.discount||0), gross=(Number(i.price)||0)*(Number(i.qty)||0), t=Number(i.total??(gross*(1-d/100)));
+   return `<tr><td>${n+1}</td><td class="left">${esc(i.description)}</td><td>${Number(i.qty||0).toFixed(2)}</td><td>Rs. ${Number(i.price||0).toFixed(2)}</td><td>${d.toFixed(2)}%</td><td>Rs. ${t.toFixed(2)}</td></tr>`;
+ }).join("");
+ const footer=[st.name,st.village,st.address,st.phone].filter(Boolean).join(" • ");
+ const notes=quoteBlocks.filter((b,i)=>i>1 && !["Measurements","Items"].includes((b.text||"").trim()) && !String(b.text||"").startsWith("Customer:") && !String(b.text||"").startsWith("Order No:") && !String(b.text||"").startsWith("Grand Total:") && !String(b.text||"").startsWith("Prepared by:")).map(b=>`<div class="note">${esc(b.text).replace(/\n/g,"<br>")}</div>`).join("");
+ const w=window.open("","_blank","width=900,height=1100");
+ if(!w){alert("Please allow pop-ups for quotation printing.");return}
+ w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>${esc(st.quoteTitle||"Quotation")}</title>
+ <style>
+ @page{size:A4;margin:10mm}
+ *{box-sizing:border-box}
+ body{margin:0;background:#fff;color:#20252b;font-family:Arial,"Noto Sans",sans-serif;font-size:11.5px}
+ .page{width:190mm;min-height:277mm;margin:auto;position:relative}
+ .top{display:flex;justify-content:space-between;align-items:center;border-bottom:2px solid #222;padding:4mm 0 3mm}
+ .brand{display:flex;align-items:center;gap:12px}.logo{max-width:55px;max-height:55px;object-fit:contain}
+ .company{font-size:25px;font-weight:800;letter-spacing:.2px}.sub{font-size:13px;letter-spacing:2px;margin-top:3px}
+ .meta{text-align:right;font-size:11.5px;line-height:1.65}.meta b{display:inline-block;min-width:65px}
+ .customer{margin-top:5mm;border:1px solid #cfd4da;border-radius:6px;padding:3.5mm 4mm;display:grid;grid-template-columns:1fr 1fr;gap:5px 18px}
+ .customer div{line-height:1.5}.customer .full{grid-column:1/-1}
+ .section-title{font-size:13px;font-weight:800;margin:5mm 0 2mm;border-left:4px solid #222;padding-left:7px}
+ table{width:100%;border-collapse:collapse}
+ th{background:#eceff2;font-weight:800}
+ th,td{border:1px solid #c8cdd2;padding:6px 5px;text-align:center;vertical-align:middle}
+ td.left{text-align:left}
+ .totals{margin:5mm 0 0 auto;width:78mm;border:1px solid #c8cdd2;border-radius:6px;overflow:hidden}
+ .totals div{display:flex;justify-content:space-between;padding:7px 9px;border-bottom:1px solid #ddd}.totals div:last-child{border-bottom:0}
+ .totals .grand{font-size:14px;font-weight:800;background:#eceff2}
+ .notes{margin-top:5mm}.note{padding:5px 0;line-height:1.5}
+ .signs{display:grid;grid-template-columns:1fr 1fr;gap:35mm;margin-top:13mm}
+ .sign{border-top:1px solid #555;padding-top:6px;font-size:10.5px}
+ .foot{position:absolute;bottom:0;left:0;right:0;border-top:1px solid #aaa;padding-top:3mm;text-align:center;font-size:9.5px;color:#555}
+ .printbtn{position:fixed;top:12px;right:12px;padding:9px 14px;border:0;border-radius:6px;background:#222;color:#fff;cursor:pointer}
+ @media print{.printbtn{display:none}.page{min-height:277mm}}
+ </style></head><body>
+ <button class="printbtn" onclick="window.print()">Print</button>
+ <div class="page">
+  <div class="top"><div class="brand">${logo}<div><div class="company">${esc(st.quoteTitle||"CS Curtain Orders")}</div><div class="sub">QUOTATION</div></div></div>
+  <div class="meta"><div><b>Quotation No:</b> ${esc(o.id||"")}</div><div><b>Date:</b> ${esc(o.measureDate||"")}</div><div><b>Delivery:</b> ${esc(o.deliveryDate||"")}</div></div></div>
+  <div class="customer">
+   <div><b>Customer Name</b><br>${esc(o.customer||"")}</div>
+   <div><b>Phone</b><br>${esc(o.phone||"")}</div>
+   <div class="full"><b>Address</b><br>${esc(o.address||"")}</div>
+   <div><b>Distance to House</b><br>${esc(o.distance||"")}</div>
+  </div>
+  <div class="section-title">Measurements</div>
+  <table><thead><tr><th>#</th><th>Height</th><th>Width</th><th>Remark</th><th>RM</th><th>M</th></tr></thead>
+  <tbody>${measurements||'<tr><td colspan="6">No measurements</td></tr>'}</tbody></table>
+  <div class="section-title">Items & Pricing</div>
+  <table><thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Discount</th><th>Total</th></tr></thead>
+  <tbody>${items||'<tr><td colspan="6">No items</td></tr>'}</tbody></table>
+  <div class="totals">
+   <div class="grand"><span>Grand Total</span><span>Rs. ${total.toFixed(2)}</span></div>
+   <div><span>Advance</span><span>Rs. ${adv.toFixed(2)}</span></div>
+   <div><b>Balance</b><b>Rs. ${bal.toFixed(2)}</b></div>
+  </div>
+  ${notes?`<div class="section-title">Notes</div><div class="notes">${notes}</div>`:""}
+  <div class="signs"><div class="sign">Measurement Officer: ${esc(o.measureOfficer||"")}</div><div class="sign">Prepared by: ${esc(o.billOfficer||"")}</div></div>
+  <div class="foot">${esc(footer||"")}</div>
+ </div>
+ </body></html>`);
+ w.document.close();
+};
+
+function quote(){let o=current;initQuoteEditor(true);let total=(o.items||[]).reduce((s,i)=>s+(i.total??((i.price||0)*(i.qty||0)*(1-(i.discount||0)/100))),0),qt=data.settings.quoteTitle||"CS Curtain Orders";let measurements=(o.measurements||[]).map((m,n)=>`<tr><td>${n+1}</td><td>${esc(m.height)}</td><td>${esc(m.width)}</td><td>${esc(m.remark==="__custom"?m.custom:m.remark)}</td><td>${(parseFloat(m.width||0)*(o.widthMultiplier||4)/39).toFixed(2)}</td><td>${(Math.ceil((parseFloat(m.width||0)*(o.widthMultiplier||4)/39)*4)/4).toFixed(2)}</td></tr>`).join("");$("quotePaper").innerHTML=`<div class="quote-head"><div><div class="quote-title">${esc(qt)}</div><div>QUOTATION</div></div><div style="text-align:right"><b>No:</b> ${esc(o.id)}<br><b>Date:</b> ${esc(o.measureDate)}</div></div><div class="quote-info"><b>Customer:</b> ${esc(o.customer)}<br><b>Phone:</b> ${esc(o.phone)}<br><b>Address:</b> ${esc(o.address)}<br><b>Distance:</b> ${esc(o.distance)}</div><h3>Measurements</h3><table class="quote-table"><thead><tr><th>#</th><th>Height</th><th>Width</th><th>Remark</th><th>RM</th><th>M</th></tr></thead><tbody>${measurements||'<tr><td colspan="6">No measurements</td></tr>'}</tbody></table><h3>Items</h3><table class="quote-table"><thead><tr><th>#</th><th>Description</th><th>Qty</th><th>Unit Price</th><th>Discount</th><th>Total</th></tr></thead><tbody>${(o.items||[]).map((i,n)=>{let d=i.discount||0,t=i.total??(i.price*i.qty-d);return`<tr><td>${n+1}</td><td>${esc(i.description)}</td><td>${Number(i.qty||0).toFixed(2)}</td><td>Rs. ${Number(i.price||0).toFixed(2)}</td><td>${Number(d).toFixed(2)}%</td><td>Rs. ${Number(t).toFixed(2)}</td></tr>`}).join("")}</tbody></table><div class="quote-total"><div><b>Grand Total</b><b>Rs. ${total.toFixed(2)}</b></div><div><span>Advance</span><span>Rs. ${(o.advance||0).toFixed(2)}</span></div><div><b>Balance</b><b>Rs. ${Math.max(0,total-(o.advance||0)).toFixed(2)}</b></div></div><div class="quote-footer">Prepared by: ${esc(o.billOfficer)}<br>Measurement Officer: ${esc(o.measureOfficer)}<br>Delivery Date: ${esc(o.deliveryDate)}</div>`}
+$("printQuote").onclick=()=>{$("quote").classList.add("printing");window.print();setTimeout(()=>$("quote").classList.remove("printing"),500)};
+
+function settingsUI(){$("welcomeTitle").value=data.settings.title;$("quoteTitle").value=data.settings.quoteTitle||"CS Curtain Orders";$("footName").value=data.settings.name;$("footVillage").value=data.settings.village;$("footAddress").value=data.settings.address;$("footPhone").value=data.settings.phone}
+$("saveSettings").onclick=()=>{Object.assign(data.settings,{title:$("welcomeTitle").value||"CS Curtain Orders",quoteTitle:$("quoteTitle").value.trim()||"CS Curtain Orders",name:$("footName").value,village:$("footVillage").value,address:$("footAddress").value,phone:$("footPhone").value});let f=$("logoFile").files[0];if(f){let r=new FileReader();r.onload=()=>{data.settings.logo=r.result;save();alert("Settings saved")};r.readAsDataURL(f)}else{save();alert("Settings saved")}};
+$("changePassword").onclick=()=>{if(!$("adminPass").value||$("adminPass").value!==$("adminPass2").value)return alert("Passwords match වෙන්න ඕන.");data.settings.password=$("adminPass").value;save();alert("Password changed")};
+$("exportData").onclick=()=>{let a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify(data)],{type:"application/json"}));a.download="CS_Curtain_Backup.json";a.click()};
+$("importData").onchange=e=>{let r=new FileReader();r.onload=()=>{try{data=JSON.parse(r.result);save();alert("Backup imported")}catch{alert("Invalid backup")}};r.readAsText(e.target.files[0])};
+$("cashCalc").onclick=()=>cash();$("cashPrint").onclick=()=>{let x=cash(),w=window.open("","_blank","width=400,height=700");if(!w)return alert("Popup blocked. Allow popups.");w.document.write(`<html><head><style>@page{size:80mm auto;margin:3mm}body{font:12px monospace;width:72mm;margin:auto}h2{text-align:center}.line{border-top:1px dashed #000;margin:8px 0}</style></head><body><h2>CS CURTAIN ORDERS</h2><div style="text-align:center">CASH REPORT</div><div class="line"></div>${x.rows}<div class="line"></div><b>SALES: Rs. ${x.sales.toFixed(2)}</b><br>ADVANCE: Rs. ${x.adv.toFixed(2)}<br>BALANCE: Rs. ${x.balance.toFixed(2)}<body onload="window.print()"></body></html>`);w.document.close()};
+function cash(){let f=$("cashFrom").value,t=$("cashTo").value,a=data.orders.filter(o=>(!f||o.measureDate>=f)&&(!t||o.measureDate<=t)),sales=a.reduce((s,o)=>s+(o.items||[]).reduce((x,i)=>x+i.price*i.qty,0),0),adv=a.reduce((s,o)=>s+(o.advance||0),0);$("cashSales").textContent="Rs. "+sales.toFixed(2);$("cashAdvance").textContent="Rs. "+adv.toFixed(2);$("cashBalance").textContent="Rs. "+(sales-adv).toFixed(2);return{sales,adv,balance:sales-adv,rows:a.map(o=>`<div>${esc(o.id)} ${esc(o.customer)}<br>Total Rs. ${(o.items||[]).reduce((s,i)=>s+i.price*i.qty,0).toFixed(2)} | Adv Rs. ${(o.advance||0).toFixed(2)}</div>`).join("<div class='line'></div>")}}
+function renderWelcome(){$("welcomeTitleDisplay").textContent=data.settings.title;let x=$("welcomeLogo");if(data.settings.logo)x.innerHTML=`<img src="${data.settings.logo}">`;else x.textContent="CS"}
+function renderFooter(){$("footer").textContent=[data.settings.name,data.settings.village,data.settings.address,data.settings.phone].filter(Boolean).join(" • ")}
+function renderAll(){renderOrders();renderPhotos();usage();settingsUI();renderWelcome();renderFooter()}
+newOrder();renderAll();
+});</script>
+</body>
+</html>
